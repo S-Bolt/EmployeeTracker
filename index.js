@@ -2,10 +2,10 @@ const { Pool } = require('pg');
 
 //connect to database
 const pool = new Pool ({
-    host:'localhose',
+    host:'localhost',
     user:'postgres',
     database:'employees_db',
-    Password:'Testing123#@!',
+    Password:'postgres',
     port:5432
 },
 console.log('Connected to empoyees_db')

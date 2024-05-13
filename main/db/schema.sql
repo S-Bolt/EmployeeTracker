@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS employees_db;
-CREATE DATABASE employees_db;
+DROP DATABASE IF EXISTS employees;
+CREATE DATABASE employees;
 
-\c employees_db;
+\c employees;
 
 CREATE TABLE department (
     id SERIAL PRIMARY KEY,
@@ -13,7 +13,8 @@ CREATE TABLE role (
    title VARCHAR(30) UNIQUE NOT NULL,
    salary DECIMAL NOT NULL,
    department_id INTEGER NOT NULL
-   FOREIGN KEY (department_id) REFERENCES department (id)
+   INDEX dep_ind (department_id),
+   CONSTRAINT fk_department FOREIGN KEY (department_id) REFERENCES department(id) ON DELETE CASCADE
 );
 
 CREATE TABLE employee (
@@ -24,5 +25,9 @@ CREATE TABLE employee (
     manager_id INTEGER,
     FOREIGN KEY (role_id) REFERENCES role (id),
     FOREIGN KEY (manager_id) REFERENCES employee,
-    
-)
+    INDEX role_ind (role_id),
+    CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES role(id) ON DELETE CASCADE,
+    manager_id INT UNSIGNED,
+    INDEX man_ind (manager_id),
+    CONSTRAINT fk_manager FOREIGN KEY (manager_id) REFERENCES employee(id) ON DELETE SET NULL
+);
