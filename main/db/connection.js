@@ -1,15 +1,15 @@
-const mysql = require("mysql2");
+const { Pool } = require('pg');
 
-const connection = mysql.createConnection({
+const pool = new Pool ({
   host: "localhost",
   // Your username
-  user: "root",
+  user: "postgres",
   // Your password
-  password: "",
+  password: "postgres",
   database: "employees"
 });
 
-connection.connect(function (err) {
+pool.connect(function (err) {
   if (err) throw err;
 });
 
