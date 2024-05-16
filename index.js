@@ -43,17 +43,30 @@ function employeeManager() {
               dbc.viewRoles();
               break;
         case 'Add Role':
+          // Asking user for the roles information then passing it to addRole method
           inquirer
             .prompt([
               {
                 type: 'input',
-                name: 'roleName',
-                message: 'Enter new role'
+                name: 'title',
+                message: 'Enter the title for new role'
+              },
+              {
+                type: 'imput',
+                name: 'salary',
+                message: 'Enter the salary for this role'
+              },
+              {
+                type: 'input',
+                name: 'departmentID',
+                message: 'Enter the depertment ID the this role'
               }
-            ]).then((answer) =>{
-              dbc.addRole(answer.roleName);
+            ]).then((answers) => {
+
+              const { title, salary, departmentID } = answers;
+
+              dbc.addRole({ title, salary, department_id: departmentID});
             });
-            //function;
             break;
         case 'View All Departments':
           //function to view departments

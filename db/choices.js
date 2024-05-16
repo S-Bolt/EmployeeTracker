@@ -15,9 +15,9 @@ class DBC {
         }); 
     }
 
-    addRole(title, salary, departmentID) {
+    addRole(role) {
         const psql = 'INSERT INTO role (title, salary, departments_id) VALUES ($1, $2, $3)';
-        const values = [role];
+        const values = [role.title, role.salary, role.department_id];
 
         this.pool.query(psql, values, (err, results) =>{
             if (err) {
