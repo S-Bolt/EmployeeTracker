@@ -1,5 +1,6 @@
 const { Pool } = require('pg');
 const inquirer = require('inquirer');
+const DBC = require('./db/choices')
 
 // Connect to database
 const pool = new Pool(
@@ -12,13 +13,7 @@ const pool = new Pool(
   console.log(`Connected to the movies_db database.`)
 );
 
-function viewDepartments() {
-    const sql = `SELECT * FROM departments`;
-  
-    pool.query(sql, (err, rows) => {
-      console.log(rows);
-    }); 
-}
+const dbc = new DBC(pool);
 
 //viewDepartments();
 
@@ -51,7 +46,7 @@ function employeeManager() {
             //function;
             break;
         case 'View All Departments':
-            //function;
+            dbc.viewDepartments();
             break;
         case 'Add Departments':
             //function;
