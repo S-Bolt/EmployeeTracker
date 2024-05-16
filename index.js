@@ -1,6 +1,6 @@
 const { Pool } = require('pg');
 const inquirer = require('inquirer');
-const DBC = require('./db/choices')
+const DBC = require('./db/choices');
 
 // Connect to database
 const pool = new Pool(
@@ -25,7 +25,7 @@ function employeeManager() {
         type: 'list',
         name: 'employeeActions',
         message: 'What would you like to do?',
-        choices: ['View All Employees', 'Add Employee', 'Update Employee Role', 'View All Roles', 'Add Role' , 'View All Departments', 'Add Departments']
+        choices: ['View All Employees', 'Add Employee', 'Update Employee Role', 'View All Roles', 'Add Role' , 'View All Departments', 'Add Departments', 'Delete Department']
       }
     ])
     .then((choice) =>  {
@@ -46,11 +46,36 @@ function employeeManager() {
             //function;
             break;
         case 'View All Departments':
+          //function to view departments
             dbc.viewDepartments();
             break;
         case 'Add Departments':
-            //function;
-            break;
+          //prompt user to name a department to add
+          inquirer
+            .prompt([
+              {
+                type: 'input',
+                name: 'departmentName',
+                message: 'Enter the department name.'
+              }
+            ]).then((answer) => {
+             //function to add new department. Prompt answer is passed to addDepartment method of dbc class.
+              dbc.addDepartment(answer.departmentName);
+            });
+            break; 
+        case 'Delete Department':
+          //prompt user to pick a department to delte
+          inquirer
+            .prompt([
+              {
+                type: 'input',
+                name: 'departmentName',
+                message: 'Enter the department name to delete'
+              }
+            ]).then((answer) => {
+              dbc.deleteDepartment(answer.departmentName);
+            });
+          break;  
       }
      
     })
