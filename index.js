@@ -40,9 +40,19 @@ function employeeManager() {
             //function;
             break;
         case 'View All Roles':
-              //function;
+              dbc.viewRoles();
               break;
         case 'Add Role':
+          inquirer
+            .prompt([
+              {
+                type: 'input',
+                name: 'roleName',
+                message: 'Enter new role'
+              }
+            ]).then((answer) =>{
+              dbc.addRole(answer.roleName);
+            });
             //function;
             break;
         case 'View All Departments':
@@ -56,7 +66,7 @@ function employeeManager() {
               {
                 type: 'input',
                 name: 'departmentName',
-                message: 'Enter the department name.'
+                message: 'Enter new department name.'
               }
             ]).then((answer) => {
              //function to add new department. Prompt answer is passed to addDepartment method of dbc class.

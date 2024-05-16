@@ -2,7 +2,32 @@ class DBC {
     constructor(pool) {
         this.pool = pool;
     }
+//Role queries
+    viewRoles() {
+        const psql = `SELECT * FROM role`;
+      
+        this.pool.query(psql, (err, results) => {
+            if (err) {
+                console.error('Error viewing role');
+                return;
+            }
+          console.log(results);
+        }); 
+    }
 
+    addRole(title, salary, departmentID) {
+        const psql = 'INSERT INTO role (title, salary, departments_id) VALUES ($1, $2, $3)';
+        const values = [role];
+
+        this.pool.query(psql, values, (err, results) =>{
+            if (err) {
+                console.error('Error adding role');
+                return;
+            }
+            console.log(results);
+        });
+    }
+//Department queries
     viewDepartments() {
         const psql = `SELECT * FROM departments`;
       
