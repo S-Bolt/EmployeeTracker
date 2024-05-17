@@ -25,7 +25,7 @@ function employeeManager() {
         type: 'list',
         name: 'employeeActions',
         message: 'What would you like to do?',
-        choices: ['View All Employees', 'Add Employee', 'Update Employee Role', 'View All Roles', 'Add Role' , 'View All Departments', 'Add Departments', 'Delete Department']
+        choices: ['View All Employees', 'Add Employee', 'Update Employee Role', 'View All Roles', 'Add Role' , 'Delete Role', 'View All Departments', 'Add Departments', 'Delete Department']
       }
     ])
     .then((choice) =>  {
@@ -67,6 +67,19 @@ function employeeManager() {
 
               dbc.addRole({ title, salary, department_id: departmentID});
             });
+            break;
+        case 'Delete Role':
+          //funtion to delete role
+          inquirer
+          .prompt([
+            {
+              type: 'input',
+              name: 'roleName',
+              message: 'Enter the role to delete'
+            }
+          ]).then((answer) => {
+            dbc.deleteRole(answer.roleName);
+          });
             break;
         case 'View All Departments':
           //function to view departments

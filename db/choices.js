@@ -8,7 +8,7 @@ class DBC {
       
         this.pool.query(psql, (err, results) => {
             if (err) {
-                console.error('Error viewing role');
+                console.error('Error viewing roles');
                 return;
             }
           console.log(results);
@@ -25,6 +25,18 @@ class DBC {
                 return;
             }
             console.log(results);
+        });
+    }
+    deleteRole(role) {
+        const psql = 'DELETE FROM role WHERE title = $1';
+        const values = [role];
+
+        this.pool.query(psql, values, (err, results) => {
+            if (err){
+                console.error ('Error deleting role');
+                return;        
+         }
+         console.log(results);
         });
     }
 //Department queries
