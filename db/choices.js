@@ -2,6 +2,45 @@ class DBC {
     constructor(pool) {
         this.pool = pool;
     }
+//Employee queries
+viewEmployees() {
+    const psql = `SELECT * FROM employee`;
+  
+    this.pool.query(psql, (err, results) => {
+        if (err) {
+            console.error('Error viewing employees');
+            return;
+        }
+      console.log(results);
+    }); 
+}
+
+addEmployee(employee) {
+    const psql = 'INSERT INTO employee (title, salary, departments_id) VALUES ($1, $2, $3)';
+    const values = [role.title, role.salary, role.department_id];
+
+    this.pool.query(psql, values, (err, results) =>{
+        if (err) {
+            console.error('Error adding employee');
+            return;
+        }
+        console.log(results);
+    });
+}
+
+deleteEmployee(employee) {
+    const psql = 'DELETE FROM employee WHERE id = $1';
+    const values = [employee];
+
+    this.pool.query(psql, values, (err, results) => {
+        if (err){
+            console.error ('Error deleting role');
+            return;        
+     }
+     console.log(results);
+    });
+}
+
 //Role queries
     viewRoles() {
         const psql = `SELECT * FROM role`;

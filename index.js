@@ -31,7 +31,7 @@ function employeeManager() {
     .then((choice) =>  {
       switch(choice.employeeActions) {
         case 'View All Employees':
-        //function;
+           dbc.viewEmployees();
            break;
         case 'Add Employee':
           //function;
