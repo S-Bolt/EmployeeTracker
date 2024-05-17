@@ -10,15 +10,11 @@ const pool = new Pool(
     password: 'postgres',
     database: 'employees_db'
   },
-  console.log(`Connected to the movies_db database.`)
+  console.log(`Connected to the employees database.`)
 );
-
 const dbc = new DBC(pool);
 
-//viewDepartments();
-
-//Creating the inquirer prompts menu
-function employeeManager() {
+function employeeManager() { 
   inquirer
     .prompt([
       {
@@ -89,7 +85,7 @@ function employeeManager() {
                 message: 'Enter the title for new role'
               },
               {
-                type: 'imput',
+                type: 'input',
                 name: 'salary',
                 message: 'Enter the salary for this role'
               },
@@ -103,6 +99,34 @@ function employeeManager() {
               const { title, salary, departmentID } = answers;
 
               dbc.addRole({ title, salary, department_id: departmentID});
+            });
+            break;
+        case 'Update Employee Role':
+          //funtion to update role
+          inquirer
+            .prompt([
+              {
+                type: 'input',
+                name: 'RoleId',
+                message: 'Enter the ID of the role you would like to update:'
+              },
+              {
+                type: 'input',
+                name: 'newTitle',
+                message: 'Enter the new title for this role:'
+              },
+              {
+                type: 'input',
+                name: 'newSalary',
+                message: 'Enter the new salary for this role:'
+              },
+              {
+                type: 'input',
+                name: 'newDepartmentId',
+                message: 'Enter the new department Id for this role:'
+              }
+            ]).then((answers) => {
+              dbc.updateEmployeeRole(answers.roleId, answers.newTitle, answers.newSalary, answers.newDepartmentId);
             });
             break;
         case 'Delete Role':

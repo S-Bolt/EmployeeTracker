@@ -69,6 +69,18 @@ deleteEmployee(employee) {
             console.log(results);
         });
     }
+    updateEmployeeRole(roleId, newTitle, newSalary, newDepartmentId) {
+        const psql = 'UPDATE role SET title = $2, salary = $3, departments_id = $4 WHERE id = $1'
+        const values = {roleId, newTitle, newSalary, newDepartmentId};
+        
+        this.pool.query(psql, values, (err, results) => {
+            if (err){
+                console.error ('Error updating role');
+                return;
+            }
+            console.log(results);
+        });
+    }
     deleteRole(role) {
         const psql = 'DELETE FROM role WHERE title = $1';
         const values = [role];
