@@ -25,7 +25,7 @@ function employeeManager() {
         type: 'list',
         name: 'employeeActions',
         message: 'What would you like to do?',
-        choices: ['View All Employees', 'Add Employee', 'Update Employee Role', 'View All Roles', 'Add Role' , 'Delete Role', 'View All Departments', 'Add Departments', 'Delete Department']
+        choices: ['View All Employees', 'Add Employee', 'Update Employee Role','Delete Employee', 'View All Roles', 'Add Role' , 'Delete Role', 'View All Departments', 'Add Departments', 'Delete Department']
       }
     ])
     .then((choice) =>  {
@@ -34,10 +34,47 @@ function employeeManager() {
            dbc.viewEmployees();
            break;
         case 'Add Employee':
-          //function;
+          inquirer
+            .prompt([
+              {
+                type: 'input',
+                name: 'first_name',
+                message: 'Enter the first name of employee'
+              },
+              {
+                type: 'input',
+                name: 'last_name',
+                message: 'Enter the last name of employee'
+              },
+              {
+                type: 'input',
+                name: 'role_id',
+                message: 'Enter the role ID of employee'
+              },
+              {
+                type: 'input',
+                name: 'manager_id',
+                message: 'Enter the manager ID of employee. If employee is mananager input NULL'
+              }
+            ]).then((answers) => {
+              dbc.addEmployee(answers);
+            });
           break;
         case 'Update Employee Role':
             //function;
+            break;
+        case 'Delete Employee':
+           //funtion to delete role
+           inquirer
+           .prompt([
+             {
+               type: 'input',
+               name: 'employeeID',
+               message: 'Enter the employee ID to delete'
+             }
+           ]).then((answer) => {
+             dbc.deleteEmployee(answer.employeeID);
+           });
             break;
         case 'View All Roles':
               dbc.viewRoles();

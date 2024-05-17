@@ -16,8 +16,11 @@ viewEmployees() {
 }
 
 addEmployee(employee) {
-    const psql = 'INSERT INTO employee (title, salary, departments_id) VALUES ($1, $2, $3)';
-    const values = [role.title, role.salary, role.department_id];
+    const psql = 'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ($1, $2, $3, $4)';
+    const { first_name, last_name, role_id, manager_id } = employee
+    const values = [first_name, last_name, role_id, manager_id];
+
+    console.log("Adding employee:", first_name, last_name, role_id, manager_id);
 
     this.pool.query(psql, values, (err, results) =>{
         if (err) {
